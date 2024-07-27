@@ -5,7 +5,7 @@ const parser = require("esprima");
 const fs = require("fs");
 const path = require("path");
 const babel = require("@babel/core");
-const luamin = require('luamin');
+const luamin = require("luamin");
 
 function compile(source, filename) {
   const transformed = babel.transformSync(source, {
@@ -16,14 +16,17 @@ function compile(source, filename) {
     filename: filename,
   }).code;
   const ast = parser.parse(transformed, { tolerant: true });
-  fs.writeFileSync('./ast.json', JSON.stringify(ast));
+  fs.writeFileSync("./ast.json", JSON.stringify(ast));
   const codeStrings = [];
 
   // At necessary runtime includes
   codeStrings.push(`local _ENV = mjrequire \"castl/runtime\";`);
   codeStrings.push(`_ENV.__use(_ENV);`);
+  codeStrings.push(`exports = {};`);
 
   codeStrings.push(castl.compileAST(ast, {}).compiled);
+
+  codeStrings.push(`return exports;`);
 
   const code = codeStrings.join("\n");
   const minifiedLua = luamin.minify(code);
