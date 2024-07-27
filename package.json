@@ -11,5 +11,6 @@
   "bin": {
     "spjs": "./index.js"
   },
-  "main": "index.js"
+  "main": "index.js",
+  "name": "spjs"
 }
