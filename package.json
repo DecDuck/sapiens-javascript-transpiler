@@ -13,6 +13,6 @@
   },
   "main": "index.js",
   "name": "@sapiens/spjs",
-  "version": "1.0.2",
-  "types": "./index.d.ts"
+  "version": "1.0.3",
+  "types": "index.d.ts"
 }
