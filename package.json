@@ -6,13 +6,14 @@
     "acorn": "3.0.2",
     "commander": "2.9.0",
     "esmangle": "1.0.1",
-    "esprima": "2.7.2"
+    "esprima": "2.7.2",
+    "luamin": "^1.0.4"
   },
   "bin": {
     "spjs": "./index.js"
   },
   "main": "index.js",
   "name": "@sapiens/spjs",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "types": "index.d.ts"
 }

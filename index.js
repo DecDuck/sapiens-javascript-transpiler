@@ -5,6 +5,7 @@ const parser = require("esprima");
 const fs = require("fs");
 const path = require("path");
 const babel = require("@babel/core");
+const luamin = require('luamin');
 
 function compile(source, filename) {
   const transformed = babel.transformSync(source, {
@@ -25,8 +26,8 @@ function compile(source, filename) {
   codeStrings.push(castl.compileAST(ast, {}).compiled);
 
   const code = codeStrings.join("\n");
-  // console.log(code);
-  return code;
+  const minifiedLua = luamin.minify(code);
+  return minifiedLua;
 }
 
 function recursivelyFindRelative(dir) {
