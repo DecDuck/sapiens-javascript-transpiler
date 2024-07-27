@@ -1709,7 +1709,7 @@
         compiledCallExpression.push(")");
       }
     } else {
-      if (compiledCallee == "mjrequire") {
+      if (compiledCallee == "require") {
         compiledCallExpression.push("mjrequire(");
         compiledCallExpression.push(compiledArguments);
       } else {
