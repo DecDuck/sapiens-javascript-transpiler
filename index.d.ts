@@ -6,7 +6,7 @@ declare module "@sapiens/spjs" {
   };
 }
 
-declare type mj = {
+declare const mj: {
   log: (...objects: any[]) => void;
   warn: (...objects: any[]) => void;
   error: (...objects: any[]) => void;
@@ -27,4 +27,4 @@ declare type mj = {
   isNan: (value: any) => boolean;
 };
 
-declare type mjrequire = (moduleName: string) => SapiensModule;
+declare const mjrequire: (moduleName: string) => SapiensModule;
