@@ -1,1 +1,3 @@
-export type HammerstoneShadowing = (module: SapiensModule) => SapiensModule;
+export type HammerstoneShadowing = {
+  shadow: (module: SapiensModule) => SapiensModule;
+};
