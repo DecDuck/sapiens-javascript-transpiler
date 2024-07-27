@@ -1,3 +1,5 @@
+#!/usr/bin/node
+
 const castl = require("./castl/castl");
 const parser = require("esprima");
 const fs = require("fs");
