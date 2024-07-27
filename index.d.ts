@@ -5,3 +5,8 @@ declare module "@sapiens/spjs" {
     [key: string]: string | number | object | Array<any>;
   };
 }
+
+declare global {
+  function mjrequire(string: string): void;
+  const mj = {};
+}
