@@ -12,6 +12,6 @@
     "spjs": "./index.js"
   },
   "main": "index.js",
-  "name": "spjs",
+  "name": "@sapiens/spjs",
   "version": "1.0.0"
 }
