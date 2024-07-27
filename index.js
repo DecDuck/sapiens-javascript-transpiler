@@ -53,7 +53,6 @@ fs.rmSync(outDir, { recursive: true });
 const sourceFiles = recursivelyFindRelative(inDir).filter(
   (e) => e.endsWith(".js") || e.endsWith(".ts")
 );
-console.log(sourceFiles);
 sourceFiles.forEach((file) => {
   const oldPath = file;
   const newPath =
