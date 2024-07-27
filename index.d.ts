@@ -3,3 +3,7 @@ declare module "@sapiens/spjs" {
     [key: string]: string | number | object | Array<any>;
   };
 }
+
+declare const mj: {
+  log: (string) => void;
+};
