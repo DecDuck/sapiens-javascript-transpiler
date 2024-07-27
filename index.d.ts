@@ -1,13 +1,24 @@
-import { SapiensModule } from "@sapiens/spjs";
-
-declare module "@sapiens/spjs" {
-  export type SapiensModule ={
-    [key: string]: any;
-  };
-}
+import {
+  HammerstoneInputManager,
+  SapiensKeyMapping,
+} from "./types/hammerstone/input";
+import { HammerstoneLogging } from "./types/hammerstone/logging";
+import { HammerstoneShadowing } from "./types/hammerstone/shadow";
+import { HammerstoneUIManager } from "./types/hammerstone/ui";
 
 declare global {
+  function mjrequire(string: "hammerstone/logging"): HammerstoneLogging;
+  function mjrequire(string: "hammerstone/utils/shadow"): HammerstoneShadowing;
+  function mjrequire(string: "hammerstone/ui/uiManager"): HammerstoneUIManager;
+  function mjrequire(
+    string: "hammerstone/input/inputManager"
+  ): HammerstoneInputManager;
+  function mjrequire(string: "mainThread/keyMapping"): SapiensKeyMapping; // Courtesy of the InputManager module
   function mjrequire(string: string): SapiensModule;
+
+  type SapiensModule = {
+    [key: string]: any;
+  };
   const mj: {
     log: (...objects: any[]) => void;
     warn: (...objects: any[]) => void;
@@ -29,3 +40,10 @@ declare global {
     isNan: (value: any) => boolean;
   };
 }
+
+export type * from "./types/hammerstone/logging";
+export type * from "./types/hammerstone/shadow";
+export type * from "./types/hammerstone/input";
+
+// Exported with a name because there's multiple components
+export type * as HammerstoneUI from "./types/hammerstone/ui";

@@ -76,8 +76,8 @@ fs.writeFileSync(
   `
 local modInfo = {
     name = "${modinfo.name}",
-    description = [[${modinfo.description}]],
-    version = "${modinfo.version}",
+    description = [[Requires the Sapiens JavaScript Runtime.\n\n${modinfo.description ?? ""}]],
+    version = "${modinfo.version ?? ""}",
     type = "world",
     preview = "${modinfo.preview ?? modinfo.icon ?? ""}",
     developer = "${modinfo.developer ?? ""}",
