@@ -48,6 +48,8 @@ function recursivelyFindRelative(dir) {
 }
 
 const settings = JSON.parse(fs.readFileSync("./spjs.json", "utf-8"));
+
+/* COMPILATION */
 const inDir = settings.src;
 const outDir = settings.build;
 
@@ -69,6 +71,13 @@ sourceFiles.forEach((file) => {
   fs.writeFileSync(newPath, lua);
 });
 
+/* COPY ASSETS */
+const overlayDir = settings.overlay;
+if (overlayDir) {
+  fs.cpSync(overlayDir, outDir, { recursive: true });
+}
+
+/* WRITING MODINFO */
 const modinfoPath = path.join(outDir, "modInfo.lua");
 const modinfo = settings.modinfo;
 fs.writeFileSync(
@@ -76,9 +85,11 @@ fs.writeFileSync(
   `
 local modInfo = {
     name = "${modinfo.name}",
-    description = [[Requires the Sapiens JavaScript Runtime.\n\n${modinfo.description ?? ""}]],
+    description = [[Requires the Sapiens JavaScript Runtime.\n\n${
+      modinfo.description ?? ""
+    }]],
     version = "${modinfo.version ?? ""}",
-    type = "world",
+    type = "${modinfo.type ?? "world"}",
     preview = "${modinfo.preview ?? modinfo.icon ?? ""}",
     developer = "${modinfo.developer ?? ""}",
     website = "${modinfo.website ?? ""}",

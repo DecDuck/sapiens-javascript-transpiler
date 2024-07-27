@@ -3,6 +3,7 @@ import {
   SapiensKeyMapping,
 } from "./types/hammerstone/input";
 import { HammerstoneLogging } from "./types/hammerstone/logging";
+import { HammerstoneSaveState } from "./types/hammerstone/saveState";
 import { HammerstoneShadowing } from "./types/hammerstone/shadow";
 import { HammerstoneUIManager } from "./types/hammerstone/ui";
 
@@ -14,6 +15,9 @@ declare global {
     string: "hammerstone/input/inputManager"
   ): HammerstoneInputManager;
   function mjrequire(string: "mainThread/keyMapping"): SapiensKeyMapping; // Courtesy of the InputManager module
+  function mjrequire(
+    string: "hammerstone/state/saveState"
+  ): HammerstoneSaveState;
   function mjrequire(string: string): SapiensModule;
 
   type SapiensModule = {
