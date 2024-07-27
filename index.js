@@ -2,9 +2,18 @@ const castl = require("./castl/castl");
 const parser = require("esprima");
 const fs = require("fs");
 const path = require("path");
+const babel = require("@babel/core");
 
-function compile(source) {
-  const ast = parser.parse(source, { tolerant: true });
+function compile(source, filename) {
+  const transformed = babel.transformSync(source, {
+    presets: [
+      require("@babel/preset-env"),
+      require("@babel/preset-typescript"),
+    ],
+    filename: filename,
+  }).code;
+  const ast = parser.parse(transformed, { tolerant: true });
+  fs.writeFileSync('./ast.json', JSON.stringify(ast));
   const codeStrings = [];
 
   // At necessary runtime includes
@@ -13,7 +22,9 @@ function compile(source) {
 
   codeStrings.push(castl.compileAST(ast, {}).compiled);
 
-  return codeStrings.join("\n");
+  const code = codeStrings.join("\n");
+  // console.log(code);
+  return code;
 }
 
 function recursivelyFindRelative(dir) {
@@ -37,18 +48,20 @@ const outDir = settings.build;
 
 fs.rmSync(outDir, { recursive: true });
 
-const sourceFiles = recursivelyFindRelative(inDir);
+const sourceFiles = recursivelyFindRelative(inDir).filter(
+  (e) => e.endsWith(".js") || e.endsWith(".ts")
+);
 console.log(sourceFiles);
 sourceFiles.forEach((file) => {
   const oldPath = file;
-  const newPath = path
-    .join(outDir, "scripts", path.relative(inDir, file))
-    .replace(".js", ".lua");
+  const newPath =
+    path.join(outDir, "scripts", path.relative(inDir, file)).slice(0, -3) +
+    ".lua";
 
   const dirName = path.dirname(newPath);
   fs.mkdirSync(dirName, { recursive: true });
 
-  const lua = compile(fs.readFileSync(oldPath, "utf-8"));
+  const lua = compile(fs.readFileSync(oldPath, "utf-8"), oldPath);
   fs.writeFileSync(newPath, lua);
 });
 
