@@ -25,7 +25,7 @@ function compile(source, filename) {
 
   codeStrings.push(castl.compileAST(ast, {}).compiled);
 
-  codeStrings.push(`return exports;`);
+  codeStrings.push(`return exports["default"];`);
 
   const code = codeStrings.join("\n");
   const minifiedLua = luamin.minify(code);
