@@ -16,7 +16,6 @@ function compile(source, filename) {
     filename: filename,
   }).code;
   const ast = parser.parse(transformed, { tolerant: true });
-  fs.writeFileSync("./ast.json", JSON.stringify(ast));
   const codeStrings = [];
 
   // At necessary runtime includes
